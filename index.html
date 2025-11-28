@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Daze Nettoyage - The High Standard of Commercial Cleaning.">
+    <title>Daze Nettoyage | Commercial Cleaning Experts</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        },
+                        brand: {
+                            light: '#38bdf8',
+                            DEFAULT: '#0284c7',
+                            dark: '#0369a1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230284c7' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E\")",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7);
+            }
+
+            70% {
+                transform: translate(-50%, -50%) scale(1.1);
+                box-shadow: 0 0 0 10px rgba(2, 132, 199, 0);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                box-shadow: 0 0 0 0 rgba(2, 132, 199, 0);
+            }
+        }
+
+        .handle-pulse {
+            animation: pulse-ring 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-slate-800 bg-slate-50 overflow-x-hidden">
+
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-slate-200 glass" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="images/logonobackground.png" alt="Daze Nettoyage Logo"
+                    class="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+
+                <div class="flex flex-col">
+                    <span class="font-heading font-bold text-2xl leading-none text-navy-900 tracking-tight">DAZE</span>
+                    <span
+                        class="text-[10px] font-bold text-brand tracking-[0.2em] uppercase leading-none">Nettoyage</span>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#about"
+                    class="text-sm font-semibold text-slate-600 hover:text-brand uppercase tracking-wide transition">About</a>
+                <a href="#services"
+                    class="text-sm font-semibold text-slate-600 hover:text-brand uppercase tracking-wide transition">Services</a>
+                <a href="#results"
+                    class="text-sm font-semibold text-slate-600 hover:text-brand uppercase tracking-wide transition">Results</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="tel:+15550000000"
+                    class="hidden md:flex items-center gap-2 text-navy-900 font-bold hover:text-brand transition">
+                    <i class="fa-solid fa-phone text-brand"></i>
+                    <span>(555) 123-4567</span>
+                </a>
+                <button onclick="openModal()"
+                    class="bg-navy-900 hover:bg-brand text-white px-6 py-2.5 rounded-lg font-bold uppercase text-xs tracking-widest shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    Get Quote
+                </button>
+                <button class="lg:hidden text-2xl text-navy-900 ml-2" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu"
+        class="fixed inset-0 z-40 bg-navy-900 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 lg:hidden">
+        <button onclick="toggleMenu()" class="absolute top-6 right-6 text-white text-3xl"><i
+                class="fa-solid fa-xmark"></i></button>
+        <a href="#about" onclick="toggleMenu()"
+            class="text-3xl font-heading font-bold text-white hover:text-brand">About</a>
+        <a href="#services" onclick="toggleMenu()"
+            class="text-3xl font-heading font-bold text-white hover:text-brand">Services</a>
+        <a href="#results" onclick="toggleMenu()"
+            class="text-3xl font-heading font-bold text-white hover:text-brand">Results</a>
+        <button onclick="toggleMenu(); openModal()"
+            class="bg-brand text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-lg">Request
+            Quote</button>
+    </div>
+
+    <header class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-navy-900">
+        <div class="absolute inset-0 z-0">
+            <img src="images/IMG_1381.jpg" class="w-full h-full object-cover opacity-40" alt="Clean Office Building">
+            <div class="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/90 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
+            <div class="reveal active">
+                <div
+                    class="inline-block px-4 py-1.5 rounded-full border border-brand/30 bg-brand/10 text-brand font-bold text-xs uppercase tracking-widest mb-6 backdrop-blur-sm">
+                    <i class="fa-solid fa-star mr-2"></i> The New Standard
+                </div>
+                <h1 class="text-5xl md:text-7xl font-heading font-bold text-white leading-[0.95] mb-6">
+                    THE HIGH <br>
+                    STANDARD OF <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-cyan-400">COMMERCIAL
+                        CLEANING.</span>
+                </h1>
+                <p
+                    class="text-slate-300 text-lg md:text-xl font-light leading-relaxed max-w-lg mb-8 border-l-4 border-brand pl-6">
+                    Redefining commercial hygiene through energy, discipline, and a modern approach.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="openModal()"
+                        class="bg-brand hover:bg-white hover:text-brand text-white px-8 py-4 rounded-lg font-bold uppercase tracking-widest shadow-lg shadow-brand/25 transition-all duration-300 flex items-center justify-center gap-3 group">
+                        <span>Start Project</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <a href="#services"
+                        class="px-8 py-4 rounded-lg font-bold uppercase tracking-widest border border-slate-600 text-white hover:bg-white/10 transition-all text-center">
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden lg:block relative reveal" style="transition-delay: 200ms;">
+                <div
+                    class="relative z-10 bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <p class="text-slate-400 text-xs uppercase font-bold tracking-widest">Client Satisfaction
+                            </p>
+                            <p class="text-white text-3xl font-heading font-bold">100%</p>
+                        </div>
+                        <div
+                            class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/5">
+                            <div class="w-10 h-10 bg-brand/20 text-brand rounded-lg flex items-center justify-center"><i
+                                    class="fa-solid fa-building"></i></div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Commercial Offices</p>
+                                <p class="text-slate-400 text-xs">Daily & Weekly Maintenance</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/5">
+                            <div class="w-10 h-10 bg-brand/20 text-brand rounded-lg flex items-center justify-center"><i
+                                    class="fa-solid fa-utensils"></i></div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Industrial Kitchens</p>
+                                <p class="text-slate-400 text-xs">Deep Degreasing & Sanitation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand rounded-full blur-[80px] opacity-50"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-brand text-white py-12 relative z-20 -mt-8 shadow-xl">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+            <div class="reveal">
+                <p class="text-4xl font-heading font-bold mb-1">2+</p>
+                <p class="text-xs uppercase tracking-widest opacity-80">Years Experience</p>
+            </div>
+            <div class="reveal" style="transition-delay: 100ms;">
+                <p class="text-4xl font-heading font-bold mb-1">3</p>
+                <p class="text-xs uppercase tracking-widest opacity-80">Founders</p>
+            </div>
+            <div class="reveal" style="transition-delay: 200ms;">
+                <p class="text-4xl font-heading font-bold mb-1">24/7</p>
+                <p class="text-xs uppercase tracking-widest opacity-80">Reliability</p>
+            </div>
+            <div class="reveal" style="transition-delay: 300ms;">
+                <p class="text-4xl font-heading font-bold mb-1">100%</p>
+                <p class="text-xs uppercase tracking-widest opacity-80">High-End Service</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative reveal">
+                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+                    <img src="images/IMG_3692.PNG" alt="Modern Team" class="w-full object-cover">
+                </div>
+                <div
+                    class="absolute -bottom-10 -right-10 w-2/3 rounded-2xl overflow-hidden shadow-2xl border-8 border-white z-20 hidden md:block">
+                    <img src="images/IMG_2122.jpg" alt="Cleaning Detail" class="w-full object-cover">
+                </div>
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-grid-pattern opacity-50 z-0"></div>
+            </div>
+
+            <div class="reveal" style="transition-delay: 200ms;">
+                <span class="text-brand font-bold uppercase tracking-widest text-sm mb-2 block">Our Story</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold text-navy-900 mb-6">YOUNG, DISCIPLINED, <br> &
+                    MODERN.</h2>
+                <div class="w-20 h-1.5 bg-brand mb-8 rounded-full"></div>
+
+                <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                    We are three young entrepreneurs, in business for two years, with a clear mission: <strong>to
+                        redefine commercial cleaning.</strong>
+                </p>
+                <p class="text-slate-600 text-lg leading-relaxed mb-8">
+                    Thanks to our energy, our discipline, and our modern approach, we offer a consistent, reliable, and
+                    high-end service that stands out. We don't just clean; we maintain the standard of your professional
+                    image.
+                </p>
+
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-brand text-xl"></i>
+                        <span class="font-bold text-navy-800">Consistent & Reliable Service</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-brand text-xl"></i>
+                        <span class="font-bold text-navy-800">Modern Equipment & Techniques</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-brand text-xl"></i>
+                        <span class="font-bold text-navy-800">Personalized Commercial Plans</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-slate-50 bg-grid-pattern relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 pointer-events-none">
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-brand font-bold uppercase tracking-widest text-sm mb-2 block">What We Do</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold text-navy-900">PREMIUM SERVICES</h2>
+                <div class="w-24 h-1.5 bg-brand mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-brand/30 hover:-translate-y-2 reveal">
+                    <div
+                        class="w-16 h-16 bg-slate-100 text-navy-900 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-navy-900 mb-3">Regular Maintenance</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 min-h-[60px]">
+                        Daily or weekly office cleaning. Consistent maintenance and reliable service for productive
+                        workspaces.
+                    </p>
+                    <a href="#" onclick="openModal('Regular Maintenance')"
+                        class="text-brand font-bold text-sm uppercase tracking-widest group-hover:text-navy-900 transition flex items-center gap-2">
+                        Get Quote <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-brand/30 hover:-translate-y-2 reveal"
+                    style="transition-delay: 100ms;">
+                    <!-- Icon -->
+                    <div
+                        class="w-16 h-16 bg-slate-100 text-navy-900 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                        <!-- SVG Spray Bottle Icon -->
+                        <svg class="w-10 h-10 icon-clean" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                            aria-hidden="true" role="img" focusable="false">
+                            <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <!-- bottle body -->
+                                <path d="M20 20h16v26a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4V20z" />
+                                <!-- neck -->
+                                <path d="M28 12h8v8H28z" />
+                                <!-- spray head -->
+                                <path d="M36 12l8-4" />
+                                <path d="M44 8l4 2" />
+                                <!-- trigger -->
+                                <path d="M36 16l8 2" />
+                                <!-- sparkle -->
+                                <path d="M52 16l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" />
+                                <!-- small sparkle -->
+                                <path d="M50 26l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" transform="scale(.6) translate(30,10)" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="text-2xl font-heading font-bold text-navy-900 mb-3">Deep Cleaning</h3>
+
+                    <!-- Description -->
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 min-h-[60px]">
+                        Complete refurbishment of your workspaces. We reach every corner to ensure sanitary perfection.
+                    </p>
+
+                    <!-- CTA -->
+                    <a href="#" onclick="openModal('Deep Cleaning')"
+                        class="text-brand font-bold text-sm uppercase tracking-widest group-hover:text-navy-900 transition flex items-center gap-2">
+                        Get Quote <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+
+                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-brand/30 hover:-translate-y-2 reveal"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="w-16 h-16 bg-slate-100 text-navy-900 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-kitchen-set"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-navy-900 mb-3">Commercial Kitchens</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 min-h-[60px]">
+                        Deep cleaning (degreasing, disinfection, walls, equipment) and regular maintenance to hygiene
+                        standards.
+                    </p>
+                    <a href="#" onclick="openModal('Commercial Kitchens')"
+                        class="text-brand font-bold text-sm uppercase tracking-widest group-hover:text-navy-900 transition flex items-center gap-2">
+                        Get Quote <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <div
+                    class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-brand/30 hover:-translate-y-2 reveal">
+                    <div
+                        class="w-16 h-16 bg-slate-100 text-navy-900 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-hammer"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-navy-900 mb-3">Post-Construction</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 min-h-[60px]">
+                        Final cleaning after renovations (Residential & Commercial). We make spaces dust-free and ready
+                        for use.
+                    </p>
+                    <a href="#" onclick="openModal('Post-Construction')"
+                        class="text-brand font-bold text-sm uppercase tracking-widest group-hover:text-navy-900 transition flex items-center gap-2">
+                        Get Quote <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-brand/30 hover:-translate-y-2 reveal"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="w-16 h-16 bg-slate-100 text-navy-900 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-scroll"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-navy-900 mb-3">Carpet Cleaning</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 min-h-[60px]">
+                        Extraction, stain treatment, and refreshing. Extend the life of your commercial flooring.
+                    </p>
+                    <a href="#" onclick="openModal('Carpet Cleaning')"
+                        class="text-brand font-bold text-sm uppercase tracking-widest group-hover:text-navy-900 transition flex items-center gap-2">
+                        Get Quote <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-brand/30 hover:-translate-y-2 reveal"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="w-16 h-16 bg-slate-100 text-navy-900 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-soap"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-navy-900 mb-3">Window Washing</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 min-h-[60px]">
+                        Interior and exterior window cleaning for homes and storefronts. Crystal clear results.
+                    </p>
+                    <a href="#" onclick="openModal('Window Washing')"
+                        class="text-brand font-bold text-sm uppercase tracking-widest group-hover:text-navy-900 transition flex items-center gap-2">
+                        Get Quote <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="py-24 bg-navy-900 text-white relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand rounded-full mix-blend-overlay filter blur-[120px] opacity-20">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-20">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <span class="text-brand font-bold uppercase tracking-widest text-sm mb-2 block">The
+                        Transformation</span>
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">BEFORE & AFTER</h2>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                        Drag the slider to see the Daze Nettoyage difference. From post-construction chaos to showroom
+                        perfection.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-lg border border-white/5">
+                            <i class="fa-solid fa-xmark text-red-500 text-xl"></i>
+                            <div>
+                                <p class="font-bold">Before</p>
+                                <p class="text-slate-400 text-sm">Dust, debris, grease, and stains.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-lg border border-white/5">
+                            <i class="fa-solid fa-check text-green-500 text-xl"></i>
+                            <div>
+                                <p class="font-bold">After</p>
+                                <p class="text-slate-400 text-sm">Sanitized, spotless, and business-ready.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 reveal"
+                    id="slider-container">
+                    <img src="images/IMG_2514.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Clean Room">
+                    <div
+                        class="absolute top-4 right-4 bg-brand text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-widest">
+                        After</div>
+
+                    <div id="slider-overlay" class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white">
+                        <img src="images/IMG_2511.jpg" class="absolute inset-0 w-[200%] h-full max-w-none object-cover"
+                            alt="Construction Mess">
+                        <div
+                            class="absolute top-4 left-4 bg-navy-900 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-widest">
+                            Before</div>
+                    </div>
+
+                    <div id="slider-handle"
+                        class="absolute inset-y-0 left-1/2 w-10 -ml-5 flex items-center justify-center cursor-ew-resize">
+                        <div
+                            class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-brand handle-pulse z-10">
+                            <i class="fa-solid fa-left-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-heading font-bold text-navy-900 mb-12 text-center reveal">RECENT PROJECTS</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[250px]">
+                <div class="col-span-2 row-span-2 relative group overflow-hidden rounded-xl bg-slate-200 reveal">
+                    <img src="images/IMG_2120.jpg"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                        alt="Office Cleaning">
+                    <div
+                        class="absolute inset-0 bg-navy-900/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <p class="text-white font-bold uppercase tracking-widest border border-white px-4 py-2">Office
+                            Maintenance</p>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl bg-slate-200 reveal"
+                    style="transition-delay: 100ms;">
+                    <img src="images/IMG_3692.PNG"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                        alt="Window Cleaning">
+                    <div
+                        class="absolute inset-0 bg-navy-900/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <p class="text-white font-bold uppercase tracking-widest text-xs border border-white px-3 py-1">
+                            Equipment</p>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl bg-slate-200 reveal"
+                    style="transition-delay: 200ms;">
+                    <img src="images/IMG_1381.jpg"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                        alt="Kitchen Cleaning">
+                    <div
+                        class="absolute inset-0 bg-navy-900/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <p class="text-white font-bold uppercase tracking-widest text-xs border border-white px-3 py-1">
+                            Kitchens</p>
+                    </div>
+                </div>
+                <div class="col-span-2 relative group overflow-hidden rounded-xl bg-slate-200 reveal"
+                    style="transition-delay: 300ms;">
+                    <img src="images/IMG_2511.jpg"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                        alt="Post Construction">
+                    <div
+                        class="absolute inset-0 bg-navy-900/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <p class="text-white font-bold uppercase tracking-widest border border-white px-4 py-2">Deep
+                            Cleaning</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-navy-900 text-slate-400 py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6 group">
+                    <img src="images/logonobackground.png" alt="Daze Nettoyage Logo" class="h-16 w-auto">
+                    <span class="font-heading font-bold text-2xl text-white">DAZE</span>
+                </div>
+                <p class="mb-6 max-w-sm">
+                    Three young entrepreneurs with a mission to redefine commercial cleaning through discipline and
+                    modernity.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand hover:text-white transition"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand hover:text-white transition"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand hover:text-white transition"><i
+                            class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Services</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-brand transition">Office Maintenance</a></li>
+                    <li><a href="#" class="hover:text-brand transition">Deep Cleaning</a></li>
+                    <li><a href="#" class="hover:text-brand transition">Commercial Kitchens</a></li>
+                    <li><a href="#" class="hover:text-brand transition">Post-Construction</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Contact</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-brand"></i> (555) 123-4567</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-brand"></i>
+                        info@dazenettoyage.com</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-brand"></i> Quebec, QC
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/10 text-xs flex justify-between items-center">
+            <p>&copy; 2024 Daze Nettoyage. All Rights Reserved.</p>
+            <p>Designed with <i class="fa-solid fa-heart text-brand"></i></p>
+        </div>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center px-4">
+
+        <div class="absolute inset-0 bg-navy-900/90 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"
+            onclick="closeModal()"></div>
+
+        <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 transform scale-95 opacity-0 transition-all duration-300"
+            id="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-heading font-bold text-navy-900">Get A Quote</h3>
+                <button onclick="closeModal()"
+                    class="text-slate-400 hover:text-navy-900 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition"><i
+                        class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Quote request sent!'); closeModal();">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Name</label>
+                    <input type="text"
+                        class="w-full border border-slate-300 rounded p-3 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+                        placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Service</label>
+                    <select id="modal-service"
+                        class="w-full border border-slate-300 rounded p-3 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand bg-white">
+                        <option>Regular Maintenance</option>
+                        <option>Deep Cleaning</option>
+                        <option>Commercial Kitchens</option>
+                        <option>Post-Construction</option>
+                        <option>Window Washing</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Phone / Email</label>
+                    <input type="text"
+                        class="w-full border border-slate-300 rounded p-3 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+                        placeholder="How can we reach you?">
+                </div>
+                <button
+                    class="w-full bg-brand text-white font-bold uppercase tracking-widest py-4 rounded hover:bg-navy-900 transition-colors duration-300 shadow-lg shadow-brand/20">Submit
+                    Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        const sliderContainer = document.getElementById('slider-container');
+        const sliderOverlay = document.getElementById('slider-overlay');
+        const sliderHandle = document.getElementById('slider-handle');
+        let isDragging = false;
+
+        function updateSlider(x) {
+            const rect = sliderContainer.getBoundingClientRect();
+            let percentage = ((x - rect.left) / rect.width) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+
+            sliderOverlay.style.width = `${percentage}%`;
+            sliderHandle.style.left = `${percentage}%`;
+        }
+
+        sliderContainer.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        sliderContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        });
+
+        sliderContainer.addEventListener('touchstart', () => isDragging = true);
+        window.addEventListener('touchend', () => isDragging = false);
+        sliderContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.touches[0].clientX);
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        function openModal(service = null) {
+            const modal = document.getElementById('modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+
+            modal.classList.remove('hidden');
+
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            if (service) {
+                document.getElementById('modal-service').value = service;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+
+            backdrop.classList.add('opacity-0');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+    </script>
+</body>
+
+</html>
